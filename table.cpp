@@ -5,3 +5,10 @@
 #include "table.h"
 
 using namespace std;
+
+Table::Table() {
+  this->tableID=new string(tableID);
+}
+
+Table::~Table() {
+}
