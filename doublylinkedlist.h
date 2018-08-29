@@ -32,19 +32,35 @@ private:
 //Node constructor.
 template <class T>
 DoublyLinkedList<T>::Node::Node() {
-  // Your code here...
+  data=nullptr;
+  next=nullptr;
+  prev=nullptr;
+}
+
+//Node(T* data) constructor
+template <class T>
+DoublyLinkedList<T>::Node::Node(T* data) {
+  this->data=data; //TODO is this correct?
+  next=nullptr;
+  prev=nullptr;
 }
 
 //DoublyLinkedList constructor.
 template <class T>
 DoublyLinkedList<T>::DoublyLinkedList() {
-  // Your code here...
+  head=nullptr;
+  tail=nullptr;
+  current=nullptr;
 }
 
 //DoublyLinkedList destructor.
 template <class T>
 DoublyLinkedList<T>::~DoublyLinkedList() {
-  // Your code here...
+  while(head!=nullptr) {
+    Node* tmp=head;
+    head=head->next;
+    delete tmp;
+  }
 }
 
 /**
@@ -58,7 +74,12 @@ DoublyLinkedList<T>::~DoublyLinkedList() {
 */
 template <class T>
 void DoublyLinkedList<T>::append(T* data) {
-  // Your code here...
+  if(empty()) {
+    head=new Node(data);
+  }
+  else {
+    tail=new Node(data);
+  }
 }
 
 /**
@@ -71,7 +92,8 @@ void DoublyLinkedList<T>::append(T* data) {
 */
 template <class T>
 T* DoublyLinkedList<T>::first() {
-  // Your code here...
+  current==head;
+  return current;
 }
 
 /**
@@ -85,7 +107,8 @@ T* DoublyLinkedList<T>::first() {
 */
 template <class T>
 T* DoublyLinkedList<T>::next() {
-  // Your code here...
+  current=current->next;
+  return current;
 }
 
 /**
@@ -99,7 +122,10 @@ T* DoublyLinkedList<T>::next() {
 */
 template <class T>
 T* DoublyLinkedList<T>::remove() {
-  // Your code here...
+  Node* tmp=current;
+  delete tmp;
+  current=current->next;
+  return current;
 }
 
 #endif // CSCI_311_DOUBLYLINKEDLIST_H
