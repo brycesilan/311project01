@@ -12,7 +12,17 @@ int main() {
   string input="0";
 
   while(cin >> input) {
-    cout << "you input " << input << endl;
+    if(input=="table") {
+    }
+    else if(input=="party") {
+    }
+    else if(input=="end") {
+      break;
+    }
+    else {
+      cerr << "Error: Invalid input" << endl;
+      return 0;
+    }
   }
 
   return 0;
