@@ -25,14 +25,17 @@ int main() {
     if(input=="table") {
       cin >> tableID >> partySize >> serverName;
       cout << "table " << tableID << " is waited by " << serverName << " for " << partySize << " people" << endl;
-      //TODO put table on available list
-      //availableList.append(table)
+
+      /*
+      Table thisTable;
+      availableList.append(thisTable);
+      */
     }
     else if(input=="party") {
       cin >> partySize >> partyName >> timeNeeded;
       cout << "the " << partyName << " party will be " << partySize << " people that need " << timeNeeded << " minutes" << endl;
-      //TODO put party on waiting list
-      //waitingList.append(party)
+
+      //waitingList.append(Party(partyName, partySize, timeNeeded));
     }
     else if(input=="end") {
       break;

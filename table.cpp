@@ -15,4 +15,6 @@ Table::Table(const string& tableID, int numSeats, const string& serverName) {
 }
 
 Table::~Table() {
+  delete tableID;
+  delete serverName;
 }

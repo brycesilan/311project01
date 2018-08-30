@@ -7,15 +7,13 @@
 using namespace std;
 
 //class constructor definition
-Party::Party() {
-  /*might not be needed
-  reservationName=NULL;
-  numDiners=0;
-  timeRequired=0;
-  */
+Party::Party(const string& reservationName, int numDiners, int timeRequired) {
+  this->reservationName=new string(reservationName);
+  this->numDiners=numDiners;
+  this->timeRequired=timeRequired;
 }
 
 //class destructor definition
 Party::~Party() {
-  //TODO free up stuff
+  delete reservationName;
 }
