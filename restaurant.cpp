@@ -4,12 +4,16 @@
 
 #include <iostream>
 #include "restaurant.h"
-//TODO might need to include other h files
+#include "doublylinkedlist.h"
+#include "party.h"
+#include "table.h"
 
 using namespace std;
 
 int main() {
-  string input="0";
+  DoublyLinkedList<Table> availableList;
+  DoublyLinkedList<Party> waitingList;
+  string input;
   string tableID;
   string serverName;
   string partyName;
@@ -21,19 +25,20 @@ int main() {
     if(input=="table") {
       cin >> tableID >> partySize >> serverName;
       cout << "table " << tableID << " is waited by " << serverName << " for " << partySize << " people" << endl;
-      //TODO create table
+      //TODO put table on available list
+      //availableList.append(table)
     }
     else if(input=="party") {
       cin >> partySize >> partyName >> timeNeeded;
       cout << "the " << partyName << " party will be " << partySize << " people that need " << timeNeeded << " minutes" << endl;
-      //TODO create party
+      //TODO put party on waiting list
+      //waitingList.append(party)
     }
     else if(input=="end") {
       break;
     }
     else {
       cerr << "Error: Invalid input" << endl;
-      return 1;
     }
   }
 
