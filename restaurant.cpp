@@ -45,5 +45,9 @@ int main() {
     }
   }
 
+  //the simulation runs here, somehow TODO how long?
+  for(int timing=120; timing>0; timing--) {
+  }
+
   return 0;
 }
