@@ -1,4 +1,4 @@
-//doudlylinkedlist.h
+//doublylinkedlist.h
 
 #ifndef CSCI_311_DOUBLYLINKEDLIST_H
 #define CSCI_311_DOUBLYLINKEDLIST_H
@@ -76,9 +76,13 @@ template <class T>
 void DoublyLinkedList<T>::append(T* data) {
   if(empty()) {
     head=new Node(data);
+    tail=head->next;
   }
   else {
-    tail=new Node(data);
+    Node* tmp=tail;
+    tail->next=new Node(data);
+    tail=tail->next;
+    tail->prev=tmp;
   }
 }
 
@@ -92,7 +96,7 @@ void DoublyLinkedList<T>::append(T* data) {
 */
 template <class T>
 T* DoublyLinkedList<T>::first() {
-  current==head;
+  current=head;
   return current;
 }
 
@@ -123,8 +127,8 @@ T* DoublyLinkedList<T>::next() {
 template <class T>
 T* DoublyLinkedList<T>::remove() {
   Node* tmp=current;
-  delete tmp;
   current=current->next;
+  delete tmp;
   return current;
 }
 

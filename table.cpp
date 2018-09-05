@@ -6,6 +6,15 @@
 
 using namespace std;
 
+//no arg class constructor
+Table::Table() {
+  tableID=nullptr;
+  numSeats=0;
+  serverName=nullptr;
+  timer=0;
+}
+
+//class constructor definition
 Table::Table(const string& tableID, int numSeats, const string& serverName) {
   this->tableID=new string(tableID);
   this->numSeats=numSeats;
@@ -14,6 +23,7 @@ Table::Table(const string& tableID, int numSeats, const string& serverName) {
   party=nullptr;
 }
 
+//class destructor definition
 Table::~Table() {
   delete tableID;
   delete serverName;

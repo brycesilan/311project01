@@ -6,6 +6,13 @@
 
 using namespace std;
 
+//no arg class constructor
+Party::Party() {
+  reservationName=nullptr;
+  numDiners=0;
+  timeRequired=0;
+}
+
 //class constructor definition
 Party::Party(const string& reservationName, int numDiners, int timeRequired) {
   this->reservationName=new string(reservationName);

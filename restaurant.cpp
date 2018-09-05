@@ -10,9 +10,19 @@
 
 using namespace std;
 
+void doCommands(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Party> &waitingParties);
+
 int main() {
   DoublyLinkedList<Table> availableList;
+  DoublyLinkedList<Table> occupiedList;
   DoublyLinkedList<Party> waitingList;
+
+  doCommands(availableList, waitingList);
+
+return 0;
+}
+
+void doCommands(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Party> &waitingParties) {
   string input;
   string tableID;
   string serverName;
@@ -21,20 +31,19 @@ int main() {
   int timeNeeded;
 
   while(cin >> input) {
-
     if(input=="table") {
       cin >> tableID >> partySize >> serverName;
       cout << "table " << tableID << " is waited by " << serverName << " for " << partySize << " people" << endl;
 
       Table* thisTable=new Table(tableID, partySize, serverName);
-      availableList.append(thisTable);
+      availableTables.append(thisTable);
     }
     else if(input=="party") {
       cin >> partySize >> partyName >> timeNeeded;
       cout << "the " << partyName << " party will be " << partySize << " people that need " << timeNeeded << " minutes" << endl;
 
       Party* thisParty=new Party(partyName, partySize, timeNeeded);
-      waitingList.append(thisParty);
+      waitingParties.append(thisParty);
     }
     else if(input=="end") {
       break;
@@ -43,10 +52,4 @@ int main() {
       cerr << "Error: Invalid input" << endl;
     }
   }
-
-  //the simulation runs here, somehow TODO how long?
-  for(int timing=120; timing>0; timing--) {
-  }
-
-  return 0;
 }
