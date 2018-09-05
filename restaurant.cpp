@@ -11,6 +11,7 @@
 using namespace std;
 
 void doCommands(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Party> &waitingParties);
+void runSim(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Table> &occupiedTables, DoublyLinkedList<Party> &waitingParties);
 
 int main() {
   DoublyLinkedList<Table> availableList;
@@ -18,8 +19,9 @@ int main() {
   DoublyLinkedList<Party> waitingList;
 
   doCommands(availableList, waitingList);
+  runSim(availableList, occupiedList, waitingList);
 
-return 0;
+  return 0;
 }
 
 void doCommands(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Party> &waitingParties) {
@@ -51,5 +53,12 @@ void doCommands(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Party
     else {
       cerr << "Error: Invalid input" << endl;
     }
+  }
+}
+
+void runSim(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Table> &occupiedTables, DoublyLinkedList<Party> &waitingParties) {
+  //TODO run simulation here, depending on bool, are there any on wait list and are any tables occupied
+  while(availableTables.empty()==true && waitingParties.empty()==false) {
+    occupiedTables.empty();
   }
 }
