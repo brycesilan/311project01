@@ -26,16 +26,15 @@ int main() {
       cin >> tableID >> partySize >> serverName;
       cout << "table " << tableID << " is waited by " << serverName << " for " << partySize << " people" << endl;
 
-      /*
-      Table thisTable;
+      Table* thisTable=new Table(tableID, partySize, serverName);
       availableList.append(thisTable);
-      */
     }
     else if(input=="party") {
       cin >> partySize >> partyName >> timeNeeded;
       cout << "the " << partyName << " party will be " << partySize << " people that need " << timeNeeded << " minutes" << endl;
 
-      //waitingList.append(Party(partyName, partySize, timeNeeded));
+      Party* thisParty=new Party(partyName, partySize, timeNeeded);
+      waitingList.append(thisParty);
     }
     else if(input=="end") {
       break;
