@@ -22,14 +22,14 @@
 // Restaurant myDiner; myDiner.getInput(); myDiner.serveParties();
 
 class Restaurant {
- public:
-   void getInput();                    // read the input from cin
-   void serveParties();                // mainloop - serve parties of diners
- private:
-   DoublyLinkedList<Table> available;  // available tables
-   DoublyLinkedList<Table> occupied;   // occupied tables
-   DoublyLinkedList<Party> waiting;    // parties waiting for a table
-   std::map<std::string,int> servers;  // counts of guests served
+  public:
+    void getInput();                    // read the input from cin
+    void serveParties();                // mainloop - serve parties of diners
+  private:
+    DoublyLinkedList<Table> available;  // available tables
+    DoublyLinkedList<Table> occupied;   // occupied tables
+    DoublyLinkedList<Party> waiting;    // parties waiting for a table
+    std::map<std::string,int> servers;  // counts of guests served
 };
 
 #endif // CSCI_311_RESTAURANT_H
