@@ -74,7 +74,7 @@ template <class T>
 void DoublyLinkedList<T>::append(T* data) {
   if(empty()) {
     head=new Node(data);
-    tail=head->next;
+    tail=head;
   }
   else {
     Node* tmp=tail;

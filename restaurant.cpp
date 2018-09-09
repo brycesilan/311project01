@@ -27,25 +27,29 @@ int main() {
 void doCommands(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Party> &waitingParties) {
   string input;
   string tableID;
-  string serverName;
-  string partyName;
+  string serverName_partyName;
   int partySize;
   int timeNeeded;
 
+  cout << "table: 'table tableID partySize serverName'" << endl;
+  cout << "party: 'party partySize partyName timeNeeded'" << endl;
+
   while(cin >> input) {
     if(input=="table") {
-      cin >> tableID >> partySize >> serverName;
-      cout << "table " << tableID << " is waited by " << serverName << " for " << partySize << " people" << endl;
+      cin >> tableID >> partySize >> serverName_partyName;
 
-      Table* thisTable=new Table(tableID, partySize, serverName);
+      Table* thisTable=new Table(tableID, partySize, serverName_partyName);
       availableTables.append(thisTable);
+
+      cout << "added table" << endl;
     }
     else if(input=="party") {
-      cin >> partySize >> partyName >> timeNeeded;
-      cout << "the " << partyName << " party will be " << partySize << " people that need " << timeNeeded << " minutes" << endl;
+      cin >> partySize >> serverName_partyName >> timeNeeded;
 
-      Party* thisParty=new Party(partyName, partySize, timeNeeded);
+      Party* thisParty=new Party(serverName_partyName, partySize, timeNeeded);
       waitingParties.append(thisParty);
+
+      cout << "added party" << endl;
     }
     else if(input=="end") {
       break;
@@ -59,5 +63,6 @@ void doCommands(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Party
 void runSim(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Table> &occupiedTables, DoublyLinkedList<Party> &waitingParties) {
   //TODO run simulation here, depending on bool, are there any on wait list and are any tables occupied
   while(availableTables.empty()==true && waitingParties.empty()==false) {
+    occupiedTables.empty();
   }
 }
