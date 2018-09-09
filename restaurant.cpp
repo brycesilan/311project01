@@ -60,9 +60,9 @@ void doCommands(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Party
   }
 }
 
+//TODO do you need a thied list? occupied tables?
 void runSim(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Table> &occupiedTables, DoublyLinkedList<Party> &waitingParties) {
-  //TODO run simulation here, depending on bool, are there any on wait list and are any tables occupied
-  while(availableTables.empty()==true && waitingParties.empty()==false) {
+  while(availableTables.empty()==false && waitingParties.empty()==true) {
     occupiedTables.empty();
   }
 }

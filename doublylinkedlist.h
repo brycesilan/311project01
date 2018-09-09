@@ -75,12 +75,14 @@ void DoublyLinkedList<T>::append(T* data) {
   if(empty()) {
     head=new Node(data);
     tail=head;
+    current=head;
   }
   else {
     Node* tmp=tail;
     tail->next=new Node(data);
     tail=tail->next;
     tail->prev=tmp;
+    current=tail;
   }
 }
 
@@ -94,8 +96,14 @@ void DoublyLinkedList<T>::append(T* data) {
  */
 template <class T>
 T* DoublyLinkedList<T>::first() {
-  current=head;
-  return current;
+  if(head!=nullptr) {
+    current=head;
+    return current->data;
+  }
+  else {
+    current=nullptr;
+    return nullptr;
+  }
 }
 
 /**
@@ -109,8 +117,13 @@ T* DoublyLinkedList<T>::first() {
  */
 template <class T>
 T* DoublyLinkedList<T>::next() {
-  current=current->next;
-  return current;
+  if(current!=nullptr) {
+    current=current->next;
+    return current->data;
+  }
+  else {
+    return nullptr;
+  }
 }
 
 /**
@@ -124,10 +137,18 @@ T* DoublyLinkedList<T>::next() {
  */
 template <class T>
 T* DoublyLinkedList<T>::remove() {
+  if(current->next!=nullptr) {
   Node* tmp=current;
   current=current->next;
   delete tmp;
-  return current;
+  return current->data;
+  }
+  else {
+    Node* tmp=current;
+    current=current->prev;
+    delete tmp;
+    return nullptr;
+  }
 }
 
 #endif // CSCI_311_DOUBLYLINKEDLIST_H
