@@ -62,14 +62,12 @@ void doCommands(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Party
 
 void runSim(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Table> &occupiedTables, DoublyLinkedList<Party> &waitingParties) {
   while(occupiedTables.empty()==false || waitingParties.empty()==false) {
-    cout << "flag1" << endl;
     if(occupiedTables.empty()==false) {
-      cout << "flag2" << endl;
       Table* tmp=occupiedTables.first();
       while(tmp!=nullptr) {
         tmp->decrementTimer();
         if(tmp->getTimer()==0) {
-          cout << tmp->getParty()->getReservationName() << " finished at " << tmp->getTableID() << endl;
+          cout << *tmp->getParty()->getReservationName() << " finished at " << *tmp->getTableID() << endl;
           occupiedTables.remove();
           tmp->clearTable();
           availableTables.append(tmp);
@@ -78,17 +76,12 @@ void runSim(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Table> &o
       }
     }
     if(waitingParties.empty()==false) {
-      cout << "flag3" << endl;
       Party* tmp=waitingParties.first();
       while(tmp!=nullptr) {
-        cout << "flag3.1" << endl;
         Table* tmpTable=availableTables.first();
         while(tmp!=nullptr) {
-        cout << "flag3.2" << endl;
-        cout << tmpTable->getNumSeats() << ":numseats " << tmp->getNumDiners() << ":numdiners" << endl;
           if(tmpTable->getNumSeats() >= tmp->getNumDiners()) {
-            cout << "flag3.3" << endl;
-            cout << tmp->getReservationName() << " seated at " << tmpTable->getTableID() << endl; //TODO returning address not string
+            cout << *tmp->getReservationName() << " seated at " << *tmpTable->getTableID() << endl; //TODO returning address not string
             tmpTable->seatParty(tmp);
             //add # of diners to server total
             //restaurant map with key of servername and data is number served
@@ -102,6 +95,5 @@ void runSim(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Table> &o
       }
     }
   }
-  //print number of diners served by each server
-  cout << "flag4" << endl;
+  //print number of diners served by each server using map stuff
 }
