@@ -60,7 +60,6 @@ void doCommands(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Party
   }
 }
 
-//TODO do you need a thied list? occupied tables?
 void runSim(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Table> &occupiedTables, DoublyLinkedList<Party> &waitingParties) {
   while(availableTables.empty()==false && waitingParties.empty()==true) {
     if(occupiedTables.empty()==false) {
@@ -68,11 +67,21 @@ void runSim(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Table> &o
       while(tmp!=nullptr) {
         tmp->decrementTimer();
         if(tmp->getTimer()==0) {
-
+          //print reservation name finished
+          //remove table from occ. list, clear table, append table to available list
         }
-
         tmp=occupiedTables.next();
       }
     }
+    if(waitingParties.empty()==false) {
+      //iterate through tables
+      //if table with enough seats is found
+      //print reservation name seated at table id
+      //set table->party, set table->timer
+      //add # of diners to server total
+      //move table to occupied list
+      //remove party from waiting list
+    }
   }
+  //print number of diners served by each server
 }
