@@ -12,6 +12,7 @@ Table::Table() {
   numSeats=0;
   serverName=nullptr;
   timer=0;
+  party=nullptr;
 }
 
 //class constructor definition
@@ -27,4 +28,10 @@ Table::Table(const string& tableID, int numSeats, const string& serverName) {
 Table::~Table() {
   delete tableID;
   delete serverName;
+}
+
+//party seating function definition
+void Table::seatParty(const Party* newParty) {
+  party=newParty;
+  timer=party->getTimeRequired();
 }

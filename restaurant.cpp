@@ -82,10 +82,12 @@ void runSim(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Table> &o
         while(tmp!=nullptr) {
           if(tmpTable->getNumSeats()<=tmp->getNumDiners()) {
             cout << tmp->getReservationName() << " seated at " << tmpTable->getTableID() << endl;
-            //set table->party, set table->timer
+            tmpTable->seatParty(tmp);
             //add # of diners to server total
-            //move table to occupied list
-            //remove party from waiting list
+            //restaurant map with key of servername and data is number served
+            availableTables.remove();
+            occupiedTables.append(tmpTable);
+            waitingParties.remove();
           }
           tmpTable=availableTables.next();
         }
