@@ -67,20 +67,30 @@ void runSim(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Table> &o
       while(tmp!=nullptr) {
         tmp->decrementTimer();
         if(tmp->getTimer()==0) {
-          //print reservation name finished
-          //remove table from occ. list, clear table, append table to available list
+          cout << tmp->getParty()->getReservationName() << " finished at " << tmp->getTableID() << endl;
+          occupiedTables.remove();
+          tmp->clearTable();
+          availableTables.append(tmp);
         }
         tmp=occupiedTables.next();
       }
     }
     if(waitingParties.empty()==false) {
-      //iterate through tables
-      //if table with enough seats is found
-      //print reservation name seated at table id
-      //set table->party, set table->timer
-      //add # of diners to server total
-      //move table to occupied list
-      //remove party from waiting list
+      Party* tmp=waitingParties.first();
+      while(tmp!=nullptr) {
+        Table* tmpTable=availableTables.first();
+        while(tmp!=nullptr) {
+          if(tmpTable->getNumSeats()<=tmp->getNumDiners()) {
+            cout << tmp->getReservationName() << " seated at " << tmpTable->getTableID() << endl;
+            //set table->party, set table->timer
+            //add # of diners to server total
+            //move table to occupied list
+            //remove party from waiting list
+          }
+          tmpTable=availableTables.next();
+        }
+        tmp=waitingParties.next();
+      }
     }
   }
   //print number of diners served by each server
