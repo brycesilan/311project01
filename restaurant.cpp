@@ -79,15 +79,19 @@ void runSim(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Table> &o
       Party* tmp=waitingParties.first();
       while(tmp!=nullptr) {
         Table* tmpTable=availableTables.first();
-        while(tmp!=nullptr) {
+        while(tmpTable!=nullptr) {
           if(tmpTable->getNumSeats() >= tmp->getNumDiners()) {
             cout << *tmp->getReservationName() << " seated at " << *tmpTable->getTableID() << endl; //TODO returning address not string
             tmpTable->seatParty(tmp);
+            cout << "flag1" << endl;
             //add # of diners to server total
             //restaurant map with key of servername and data is number served
             availableTables.remove();
+            cout << "flag2" << endl;
             occupiedTables.append(tmpTable);
+            cout << "flag3" << endl;
             waitingParties.remove();
+            cout << "flag4" << endl;
           }
           tmpTable=availableTables.next();
         }
