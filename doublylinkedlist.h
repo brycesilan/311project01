@@ -38,7 +38,7 @@ DoublyLinkedList<T>::Node::Node() {
 //Node(T* data) constructor
 template <class T>
 DoublyLinkedList<T>::Node::Node(T* data) {
-  this->data=data; //TODO is this correct?
+  this->data=data;
   next=nullptr;
   prev=nullptr;
 }
