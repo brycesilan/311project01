@@ -101,7 +101,6 @@ T* DoublyLinkedList<T>::first() {
     return current->data;
   }
   else {
-    current=nullptr;
     return nullptr;
   }
 }
