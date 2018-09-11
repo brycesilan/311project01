@@ -116,11 +116,12 @@ T* DoublyLinkedList<T>::first() {
  */
 template <class T>
 T* DoublyLinkedList<T>::next() {
-  if(current!=nullptr) {
+  if(current->next!=nullptr) {
     current=current->next;
     return current->data;
   }
   else {
+    current=nullptr;
     return nullptr;
   }
 }
@@ -137,10 +138,10 @@ T* DoublyLinkedList<T>::next() {
 template <class T>
 T* DoublyLinkedList<T>::remove() {
   if(current->next!=nullptr) {
-  Node* tmp=current;
-  current=current->next;
-  delete tmp;
-  return current->data;
+    Node* tmp=current;
+    current=current->next;
+    delete tmp;
+    return current->data;
   }
   else {
     Node* tmp=current;
