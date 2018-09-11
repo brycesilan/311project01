@@ -3,6 +3,7 @@
 //crichards14
 
 #include <iostream>
+#include <map>
 #include "restaurant.h"
 #include "doublylinkedlist.h"
 #include "party.h"
@@ -11,15 +12,14 @@
 using namespace std;
 
 void doCommands(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Party> &waitingParties);
-void runSim(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Table> &occupiedTables, DoublyLinkedList<Party> &waitingParties);
+void runSim(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Party> &waitingParties);
 
 int main() {
   DoublyLinkedList<Table> availableList;
-  DoublyLinkedList<Table> occupiedList;
   DoublyLinkedList<Party> waitingList;
 
   doCommands(availableList, waitingList);
-  runSim(availableList, occupiedList, waitingList);
+  runSim(availableList, waitingList);
 
   return 0;
 }
@@ -60,7 +60,10 @@ void doCommands(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Party
   }
 }
 
-void runSim(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Table> &occupiedTables, DoublyLinkedList<Party> &waitingParties) {
+void runSim(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Party> &waitingParties) {
+  DoublyLinkedList<Table> occupiedTables;
+  map<string, int> serverData;
+
   while(occupiedTables.empty()==false || waitingParties.empty()==false) {
     if(occupiedTables.empty()==false) {
       Table* tmp=occupiedTables.first();
@@ -81,17 +84,12 @@ void runSim(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Table> &o
         Table* tmpTable=availableTables.first();
         while(tmpTable!=nullptr) {
           if(tmpTable->getNumSeats() >= tmp->getNumDiners()) {
-            cout << *tmp->getReservationName() << " seated at " << *tmpTable->getTableID() << endl; //TODO returning address not string
+            cout << *tmp->getReservationName() << " seated at " << *tmpTable->getTableID() << endl;
             tmpTable->seatParty(tmp);
-            cout << "flag1" << endl;
-            //add # of diners to server total
-            //restaurant map with key of servername and data is number served
+            serverData[*tmpTable->getServerName()] = serverData[*tmpTable->getServerName()]+tmp->getNumDiners();
             availableTables.remove();
-            cout << "flag2" << endl;
             occupiedTables.append(tmpTable);
-            cout << "flag3" << endl;
             waitingParties.remove();
-            cout << "flag4" << endl;
           }
           tmpTable=availableTables.next();
         }
@@ -99,5 +97,7 @@ void runSim(DoublyLinkedList<Table> &availableTables, DoublyLinkedList<Table> &o
       }
     }
   }
-  //print number of diners served by each server using map stuff
+  for(map<string, int>::iterator it=serverData.begin(); it!=serverData.end(); it++) {
+    cout << it->first << " served " << it->second << endl;
+  }
 }
