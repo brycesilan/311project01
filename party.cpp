@@ -4,8 +4,6 @@
 
 #include "party.h"
 
-using namespace std;
-
 //no arg class constructor
 Party::Party() {
   reservationName=nullptr;

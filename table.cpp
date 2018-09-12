@@ -4,8 +4,6 @@
 
 #include "table.h"
 
-using namespace std;
-
 //no arg class constructor
 Table::Table() {
   tableID=nullptr;
