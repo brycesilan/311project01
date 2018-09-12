@@ -96,6 +96,7 @@ void DoublyLinkedList<T>::append(T* data) {
  */
 template <class T>
 T* DoublyLinkedList<T>::first() {
+  //TODO can we just current=head; return current->data;
   if(head!=nullptr) {
     current=head;
     return current->data;
