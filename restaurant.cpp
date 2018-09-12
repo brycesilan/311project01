@@ -68,6 +68,7 @@ void Restaurant::serveParties() {
             available.remove();
             occupied.append(tmpTable);
             waiting.remove();
+            break;
           }
           tmpTable=available.next();
         }
