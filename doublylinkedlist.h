@@ -102,6 +102,7 @@ T* DoublyLinkedList<T>::first() {
     return current->data;
   }
   else {
+    current=nullptr;
     return nullptr;
   }
 }
@@ -150,7 +151,7 @@ T* DoublyLinkedList<T>::remove() {
     }
     else {
       Node* tmp=current;
-      current=current->prev;
+      current=nullptr;
       delete tmp;
       return nullptr;
     }

@@ -61,14 +61,14 @@ void Restaurant::serveParties() {
       while(tmp!=nullptr) {
         Table* tmpTable=available.first();
         while(tmpTable!=nullptr) {
+
+          cout << "--- hey : " << tmpTable->getNumSeats() << " oh: " << tmp->getNumDiners() << endl;
+
           if(tmpTable->getNumSeats() >= tmp->getNumDiners()) {
             cout << *tmp->getReservationName() << " seated at " << *tmpTable->getTableID() << endl;
-            tmpTable->seatParty(tmp);
+            tmpTable->seatParty(waiting.remove()); //was tmp
             servers[*tmpTable->getServerName()] = servers[*tmpTable->getServerName()]+tmp->getNumDiners();
-            available.remove();
-            occupied.append(tmpTable);
-            waiting.remove();
-            break;
+            occupied.append(available.remove()); //was tmpTable
           }
           tmpTable=available.next();
         }
