@@ -10,6 +10,9 @@ class DoublyLinkedList {
     ~DoublyLinkedList();
     void append(T* data);
     bool empty() const { return (head == nullptr); }
+
+    void printList();
+
     T* remove();
     T* first();
     T* next();
@@ -82,6 +85,7 @@ void DoublyLinkedList<T>::append(T* data) {
     tail->next=new Node(data);
     tail=tail->next;
     tail->prev=tmp;
+    tail->next=nullptr;
     current=tail;
   }
 }

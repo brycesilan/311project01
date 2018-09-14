@@ -9,10 +9,31 @@ using namespace std;
 
 int main() {
   Restaurant myDiner;
+
   myDiner.getInput();
+
+  myDiner.printLists();
+
   myDiner.serveParties();
 
   return 0;
+}
+
+void Restaurant::printLists() {
+  if(available.empty()==false) {
+    Table* tmp=available.first();
+    while(tmp!=nullptr) {
+      cout << "--------- " << *tmp->getTableID() << " ** is an available table**" << endl;
+      tmp=available.next();
+    }
+  }
+  if(waiting.empty()==false) {
+    Party* tmp=waiting.first();
+    while(tmp!=nullptr) {
+      cout << "--------- " << *tmp->getReservationName() << " **is waiting**" << endl;
+      tmp=waiting.next();
+    }
+  }
 }
 
 void Restaurant::getInput() {
@@ -61,18 +82,22 @@ void Restaurant::serveParties() {
       while(tmp!=nullptr) {
         Table* tmpTable=available.first();
         while(tmpTable!=nullptr) {
-
-          cout << "--- hey : " << tmpTable->getNumSeats() << " oh: " << tmp->getNumDiners() << endl;
-
           if(tmpTable->getNumSeats() >= tmp->getNumDiners()) {
             cout << *tmp->getReservationName() << " seated at " << *tmpTable->getTableID() << endl;
-            tmpTable->seatParty(waiting.remove()); //was tmp
+            tmpTable->seatParty(tmp); //was tmp
             servers[*tmpTable->getServerName()] = servers[*tmpTable->getServerName()]+tmp->getNumDiners();
-            occupied.append(available.remove()); //was tmpTable
+            occupied.append(tmpTable); //was tmpTable
+            waiting.remove();
+            available.remove();
+            break;
           }
+          cout << "***** going to next available" << endl;
           tmpTable=available.next();
+          cout << "***** went to next, tmpTable is " << *tmpTable->getServerName() << endl;
         }
+        cout << "***** going to next waiting" << endl;
         tmp=waiting.next();
+        cout << "***** went to next, tmp is " << *tmp->getReservationName() << endl;
       }
     }
   }
