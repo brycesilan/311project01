@@ -103,6 +103,7 @@ T* DoublyLinkedList<T>::first() {
   //TODO can we just current=head; return current->data;
   if(head!=nullptr) {
     current=head;
+    current->next=nullptr;
     return current->data;
   }
   else {
@@ -132,7 +133,9 @@ T* DoublyLinkedList<T>::next() {
       return nullptr;
     }
   }
-  return nullptr;
+  else {
+    return nullptr;
+  }
 }
 
 /**

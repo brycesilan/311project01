@@ -91,11 +91,11 @@ void Restaurant::serveParties() {
             available.remove();
             break;
           }
-          cout << "***** going to next available" << endl;
+          cout << "***** going to next available, currently is :" << *tmpTable->getServerName() << endl;
           tmpTable=available.next();
           cout << "***** went to next, tmpTable is " << *tmpTable->getServerName() << endl;
         }
-        cout << "***** going to next waiting" << endl;
+        cout << "***** going to next waiting, currently is :" << *tmp->getReservationName() << endl;
         tmp=waiting.next();
         cout << "***** went to next, tmp is " << *tmp->getReservationName() << endl;
       }
