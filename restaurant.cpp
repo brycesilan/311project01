@@ -94,8 +94,8 @@ void Restaurant::serveParties() {
             servers[*tmpTable->getServerName()] = servers[*tmpTable->getServerName()]+tmp->getNumDiners();
             occupied.append(tmpTable);
             waiting.remove();
-            available.remove(); //psuedo-code does not include this in thing
-          } //I also added stuff to remove()
+            available.remove(); //psuedo-code does not include this
+          }
           tmpTable=available.next();
         }
         tmp=waiting.next();
