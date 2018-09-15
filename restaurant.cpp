@@ -9,28 +9,25 @@ using namespace std;
 
 int main() {
   Restaurant myDiner;
-
   myDiner.getInput();
-
-  myDiner.printLists();
-
+  myDiner.printLists(); //TODO just for testing
   myDiner.serveParties();
 
   return 0;
 }
 
-void Restaurant::printLists() {
+void Restaurant::printLists() {//TODO just for testing
   if(available.empty()==false) {
     Table* tmp=available.first();
     while(tmp!=nullptr) {
-      cout << "--------- " << *tmp->getTableID() << " ** is an available table**" << endl;
+      cout << "--------- " << *tmp->getTableID() << " **available table**" << endl;
       tmp=available.next();
     }
   }
   if(waiting.empty()==false) {
     Party* tmp=waiting.first();
     while(tmp!=nullptr) {
-      cout << "--------- " << *tmp->getReservationName() << " **is waiting**" << endl;
+      cout << "--------- " << *tmp->getReservationName() << " **waiting**" << endl;
       tmp=waiting.next();
     }
   }
@@ -68,7 +65,7 @@ void Restaurant::serveParties() {
       Table* tmp=occupied.first();
       while(tmp!=nullptr) {
         tmp->decrementTimer();
-        if(tmp->getTimer()==0) {
+        if(tmp->getTimer()<=0) {
           cout << *tmp->getParty()->getReservationName() << " finished at " << *tmp->getTableID() << endl;
           occupied.remove();
           tmp->clearTable();
@@ -85,19 +82,15 @@ void Restaurant::serveParties() {
           if(tmpTable->getNumSeats() >= tmp->getNumDiners()) {
             cout << *tmp->getReservationName() << " seated at " << *tmpTable->getTableID() << endl;
             tmpTable->seatParty(tmp);
+            tmpTable->setTimer(tmp->getTimeRequired());
             servers[*tmpTable->getServerName()] = servers[*tmpTable->getServerName()]+tmp->getNumDiners();
             occupied.append(tmpTable);
             waiting.remove();
-            available.remove();
-            break;
-          }
-          cout << "***** going to next available, currently is: " << *tmpTable->getServerName() << endl;
+            available.remove(); //psuedo-code does not include this in thing
+          } //I also added stuff to remove()
           tmpTable=available.next();
-          cout << "***** went to next, tmpTable is " << *tmpTable->getServerName() << endl;
         }
-        cout << "***** going to next waiting, currently is :" << *tmp->getReservationName() << endl;
         tmp=waiting.next();
-        //cout << "***** went to next, tmp is " << *tmp->getReservationName() << endl;
       }
     }
   }
