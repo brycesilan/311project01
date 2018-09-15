@@ -16,6 +16,7 @@ int main() {
   return 0;
 }
 
+
 void Restaurant::printLists() {//TODO just for testing
   if(available.empty()==false) {
     Table* tmp=available.first();
@@ -33,6 +34,8 @@ void Restaurant::printLists() {//TODO just for testing
   }
 }
 
+//input function definition
+//gets input, places in table or party, applies to available or waiting lists
 void Restaurant::getInput() {
   string input;
   string tableID;
@@ -59,6 +62,11 @@ void Restaurant::getInput() {
   }
 }
 
+//party serving function definition
+//while there are people eating or waiting
+//when done eating, removed from occupied, appended to available
+//if table found for waiting party, placed on table and appended to occupied
+//when primary while loop is done, prints the contents of the map
 void Restaurant::serveParties() {
   while(occupied.empty()==false || waiting.empty()==false) {
     if(occupied.empty()==false) {
