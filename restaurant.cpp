@@ -92,9 +92,9 @@ void Restaurant::serveParties() {
             tmpTable->seatParty(tmp);
             tmpTable->setTimer(tmp->getTimeRequired());
             servers[*tmpTable->getServerName()] = servers[*tmpTable->getServerName()]+tmp->getNumDiners();
+            available.remove(); //psuedo-code does not include this
             occupied.append(tmpTable);
             waiting.remove();
-            available.remove(); //psuedo-code does not include this
           }
           tmpTable=available.next();
         }
