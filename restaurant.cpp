@@ -25,12 +25,28 @@ void Restaurant::printLists() {//TODO just for testing
       tmp=available.next();
     }
   }
+  else {
+    cout << "----------- available is empty -----------" << endl;
+  }
   if(waiting.empty()==false) {
     Party* tmp=waiting.first();
     while(tmp!=nullptr) {
       cout << "--------- " << *tmp->getReservationName() << " **waiting**" << endl;
       tmp=waiting.next();
     }
+  }
+  else {
+    cout << "----------- waiting is empty -----------" << endl;
+  }
+  if(occupied.empty()==false) {
+    Table* tmp=occupied.first();
+    while(tmp!=nullptr) {
+      cout << "--------- " << *tmp->getTableID() << " **occupied**" << endl;
+      tmp=occupied.next();
+    }
+  }
+  else {
+    cout << "----------- occupied is empty -----------" << endl;
   }
 }
 
@@ -75,9 +91,9 @@ void Restaurant::serveParties() {
         tmp->decrementTimer();
         if(tmp->getTimer()<=0) {
           cout << *tmp->getParty()->getReservationName() << " finished at " << *tmp->getTableID() << endl;
-          occupied.remove();
           tmp->clearTable();
           available.append(tmp);
+          occupied.remove();
         }
         tmp=occupied.next();
       }
@@ -95,10 +111,16 @@ void Restaurant::serveParties() {
             available.remove(); //psuedo-code does not include this
             occupied.append(tmpTable);
             waiting.remove();
+            printLists();
+            break;
           }
+          cout << "moving to next table" << endl;
           tmpTable=available.next();
+          printLists();
         }
+        cout << "moving to next party" << endl;
         tmp=waiting.next();
+        printLists();
       }
     }
   }
