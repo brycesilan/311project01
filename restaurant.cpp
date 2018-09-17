@@ -42,6 +42,7 @@ void Restaurant::getInput() {
   int partySize;
   int timeNeeded;
 
+  //input takes in put until input=='end'
   while(cin >> input) {
     if(input=="table") {
       cin >> tableID >> partySize >> serverName_partyName;
