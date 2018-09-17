@@ -25,7 +25,6 @@ class Restaurant {
   public:
     void getInput();                    // read the input from cin
     void serveParties();                // mainloop - serve parties of diners
-    void printLists();//TODO this is just for testing
   private:
     DoublyLinkedList<Table> available;  // available tables
     DoublyLinkedList<Table> occupied;   // occupied tables

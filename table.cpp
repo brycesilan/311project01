@@ -1,6 +1,11 @@
-//table.cpp
-//Richards, Connor
-//crichards14
+/**
+ * @file table.cpp
+ *
+ * @breif
+ *    definitions of table class functions
+ *
+ * @author Connor Richards
+ */
 
 #include "table.h"
 

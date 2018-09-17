@@ -1,4 +1,12 @@
-//doublylinkedlist.h
+/**
+ * @file doublylinkedlist.h
+ *
+ * @breif
+ *    definitions of doubly linked list class and node sub-class
+ *
+ * @author Connor Richards
+ *         Judy Challinger
+ */
 
 #ifndef CSCI_311_DOUBLYLINKEDLIST_H
 #define CSCI_311_DOUBLYLINKEDLIST_H
@@ -30,7 +38,7 @@ class DoublyLinkedList {
     Node* current;
 };
 
-//Node constructor.
+//no args. node constructor
 template <class T>
 DoublyLinkedList<T>::Node::Node() {
   data=nullptr;
@@ -99,7 +107,6 @@ void DoublyLinkedList<T>::append(T* data) {
  */
 template <class T>
 T* DoublyLinkedList<T>::first() {
-  /*TODO can we just current=head; return current->data;
   if(head!=nullptr) {
     current=head;
     return current->data;
@@ -107,9 +114,7 @@ T* DoublyLinkedList<T>::first() {
   else {
     current=nullptr;
     return nullptr;
-  }*/
-  current=head;
-  return current->data;
+  }
 }
 
 /**

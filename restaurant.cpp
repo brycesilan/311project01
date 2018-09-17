@@ -1,58 +1,41 @@
-//restaurant.cpp
-//Richards, Connor
-//crichards14
+/** 
+ * @file restaurant.cpp
+ *
+ * @breif
+ *    definitions of restaurant functions and main()
+ *
+ * @author Connor Richards
+ */
 
 #include <iostream>
 #include "restaurant.h"
 
 using namespace std;
 
+/**
+ * @breif creates restaurant object, gets input, and serves parties
+ * @param none
+ * @return 0
+ *
+ * Runs the simulation
+ */
 int main() {
   Restaurant myDiner;
   myDiner.getInput();
-  myDiner.printLists(); //TODO just for testing
   myDiner.serveParties();
 
   return 0;
 }
 
-
-void Restaurant::printLists() {//TODO just for testing
-  if(available.empty()==false) {
-    Table* tmp=available.first();
-    while(tmp!=nullptr) {
-      cout << "--------- " << *tmp->getTableID() << " **available table**" << endl;
-      tmp=available.next();
-    }
-  }
-  else {
-    cout << "----------- available is empty -----------" << endl;
-  }
-  if(waiting.empty()==false) {
-    Party* tmp=waiting.first();
-    while(tmp!=nullptr) {
-      cout << "--------- " << *tmp->getReservationName() << " **waiting**" << endl;
-      tmp=waiting.next();
-    }
-  }
-  else {
-    cout << "----------- waiting is empty -----------" << endl;
-  }
-  if(occupied.empty()==false) {
-    Table* tmp=occupied.first();
-    while(tmp!=nullptr) {
-      cout << "--------- " << *tmp->getTableID() << " **occupied**" << endl;
-      tmp=occupied.next();
-    }
-  }
-  else {
-    cout << "----------- occupied is empty -----------" << endl;
-  }
-}
-
-//input function definition
-//gets input, places in table or party, applies to available or waiting lists
+/**
+ * @breif Takes input and creates tables or parties, appends them to lists
+ * @param none
+ * @return none
+ *
+ * Takes input, depending on command, creates a table or party to go on the waiting or available lists
+ */
 void Restaurant::getInput() {
+  //input variables
   string input;
   string tableID;
   string serverName_partyName;
@@ -78,13 +61,17 @@ void Restaurant::getInput() {
   }
 }
 
-//party serving function definition
-//while there are people eating or waiting
-//when done eating, removed from occupied, appended to available
-//if table found for waiting party, placed on table and appended to occupied
-//when primary while loop is done, prints the contents of the map
+/**
+ * @breif Runs restaurant simulation
+ * @param none
+ * @return none
+ *
+ * Uses the lists to run the simulation of serving customers until all customers are gone
+ */
 void Restaurant::serveParties() {
+  //loop of restaurant being open
   while(occupied.empty()==false || waiting.empty()==false) {
+    //clears parties done eating
     if(occupied.empty()==false) {
       Table* tmp=occupied.first();
       while(tmp!=nullptr) {
@@ -98,6 +85,7 @@ void Restaurant::serveParties() {
         tmp=occupied.next();
       }
     }
+    //seats waiting parties
     if(waiting.empty()==false) {
       Party* tmp=waiting.first();
       while(tmp!=nullptr) {
@@ -108,22 +96,18 @@ void Restaurant::serveParties() {
             tmpTable->seatParty(tmp);
             tmpTable->setTimer(tmp->getTimeRequired());
             servers[*tmpTable->getServerName()] = servers[*tmpTable->getServerName()]+tmp->getNumDiners();
-            available.remove(); //psuedo-code does not include this
+            available.remove();
             occupied.append(tmpTable);
             waiting.remove();
-            printLists();
             break;
           }
-          cout << "moving to next table" << endl;
           tmpTable=available.next();
-          printLists();
         }
-        cout << "moving to next party" << endl;
         tmp=waiting.next();
-        printLists();
       }
     }
   }
+  //iterates through all servers and displays # served
   for(map<string, int>::iterator it=servers.begin(); it!=servers.end(); it++) {
     cout << it->first << " served " << it->second << endl;
   }

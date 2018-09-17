@@ -1,6 +1,11 @@
-//party.cpp
-//Richards, Connor
-//crichards14
+/**
+ * @file party.cpp
+ *
+ * @brief
+ *    definitions of party class functions
+ *
+ * @author Connor Richards
+ */
 
 #include "party.h"
 
