@@ -4,7 +4,7 @@ table table-03 4 Sara
 table table-04 4 Sara
 table booth-01 6 John
 table booth-02 4 John
-party 3 Larry 60
+party 6 Larry 60
 party 6 Jan 90
 party 4 Mike 75
 party 6 Cindy 90
