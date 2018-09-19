@@ -1,3 +1,3 @@
 # 311project01
 
-project 1 repository CSCI 311
+CSCI 311 project 1
