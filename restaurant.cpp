@@ -90,6 +90,7 @@ void Restaurant::serveParties() {
     if(waiting.empty()==false) {
       Party* tmp=waiting.first();
       while(tmp!=nullptr) {
+        bool removed=false;
         Table* tmpTable=available.first();
         while(tmpTable!=nullptr) {
           if(tmpTable->getNumSeats() >= tmp->getNumDiners()) {
@@ -98,14 +99,18 @@ void Restaurant::serveParties() {
             tmpTable->setTimer(tmp->getTimeRequired());
             servers[*tmpTable->getServerName()] = servers[*tmpTable->getServerName()]+tmp->getNumDiners();
             //need to update head to different things in remove() also need to make it so it wont move twice, like "remove, next" skips a person
-            available.remove();
+            //also maybe consolidate the removes and appends
             occupied.append(tmpTable);
-            waiting.remove();
+            available.remove();
+            tmp=waiting.remove();
+            removed=true;
             break;
           }
           tmpTable=available.next();
         }
-        tmp=waiting.next();
+        if(removed==false) {
+          tmp=waiting.next();
+        }
       }
     }
   }
