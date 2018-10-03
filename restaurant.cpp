@@ -97,6 +97,7 @@ void Restaurant::serveParties() {
             tmpTable->seatParty(tmp);
             tmpTable->setTimer(tmp->getTimeRequired());
             servers[*tmpTable->getServerName()] = servers[*tmpTable->getServerName()]+tmp->getNumDiners();
+            //need to update head to different things in remove() also need to make it so it wont move twice, like "remove, next" skips a person
             available.remove();
             occupied.append(tmpTable);
             waiting.remove();
