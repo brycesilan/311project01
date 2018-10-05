@@ -76,14 +76,18 @@ void Restaurant::serveParties() {
     if(occupied.empty()==false) {
       Table* tmp=occupied.first();
       while(tmp!=nullptr) {
+        bool removed=false;
         tmp->decrementTimer();
         if(tmp->getTimer()<=0) {
           cout << *tmp->getParty()->getReservationName() << " finished at " << *tmp->getTableID() << endl;
           tmp->clearTable();
           available.append(tmp);
-          occupied.remove();
+          tmp=occupied.remove();
+          removed=true;
         }
-        tmp=occupied.next();
+        if(removed==false) {
+          tmp=occupied.next();
+        }
       }
     }
     //seats waiting parties

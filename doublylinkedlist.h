@@ -92,8 +92,8 @@ void DoublyLinkedList<T>::append(T* data) {
     Node* tmp=tail;
     tail->next=new Node(data);
     tail=tail->next;
-    //TODO do i need this prev thing
     tail->prev=tmp;
+    tail->next=nullptr;
     current=tail;
   }
 }
@@ -156,6 +156,7 @@ T* DoublyLinkedList<T>::next() {
 template <class T>
 T* DoublyLinkedList<T>::remove() {
   //beginning end and middle head change
+  //also prev
   if(current!=nullptr) {
     if(current->next!=nullptr) {
       Node* tmp=current;
@@ -163,6 +164,7 @@ T* DoublyLinkedList<T>::remove() {
         head=head->next;
       }
       current=current->next;
+      current->prev=tmp->prev;
       delete tmp;
       return current->data;
     }
@@ -170,8 +172,9 @@ T* DoublyLinkedList<T>::remove() {
       Node* tmp=current;
       if(head==current) {
         head=nullptr;
+        tail=nullptr;
       }
-      if(tail==current && tail->prev!=nullptr) {
+      else if(tail==current && tail->prev!=nullptr) {
         tail=tail->prev;
       }
       current=nullptr;
