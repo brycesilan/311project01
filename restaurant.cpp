@@ -73,6 +73,7 @@ void Restaurant::serveParties() {
   //loop of restaurant being open
   while(occupied.empty()==false || waiting.empty()==false) {
     //clears parties done eating
+    //if anyone is sitting at a table (if occupied)
     if(occupied.empty()==false) {
       Table* tmp=occupied.first();
       while(tmp!=nullptr) {
@@ -102,8 +103,6 @@ void Restaurant::serveParties() {
             tmpTable->seatParty(tmp);
             tmpTable->setTimer(tmp->getTimeRequired());
             servers[*tmpTable->getServerName()] = servers[*tmpTable->getServerName()]+tmp->getNumDiners();
-            //hopefully remove() works (watch out for head, also need to make it so it wont move twice, like "remove, next" skips a person
-            //also maybe consolidate the removes and appends
             occupied.append(tmpTable);
             available.remove();
             tmp=waiting.remove();

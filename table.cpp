@@ -35,6 +35,6 @@ Table::~Table() {
 
 //party seating function definition
 void Table::seatParty(const Party* newParty) {
-  party=newParty;
-  timer=party->getTimeRequired();
+    party=newParty;
+    timer=party->getTimeRequired();
 }

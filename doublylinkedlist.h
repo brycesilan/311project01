@@ -84,11 +84,13 @@ DoublyLinkedList<T>::~DoublyLinkedList() {
 template <class T>
 void DoublyLinkedList<T>::append(T* data) {
   if(empty()) {
+    //if list empty, creates new node and sets all DLL vars to point to it
     head=new Node(data);
     tail=head;
     current=head;
   }
   else {
+    //if non-empty list TODO more comments
     Node* tmp=tail;
     tail->next=new Node(data);
     tail=tail->next;
@@ -109,10 +111,12 @@ void DoublyLinkedList<T>::append(T* data) {
 template <class T>
 T* DoublyLinkedList<T>::first() {
   if(head!=nullptr) {
+    //returns head if it points to something
     current=head;
     return current->data;
   }
   else {
+    //returns nothing if empty list
     current=nullptr;
     return nullptr;
   }
@@ -129,12 +133,15 @@ T* DoublyLinkedList<T>::first() {
  */
 template <class T>
 T* DoublyLinkedList<T>::next() {
+  //ensure current points to something
   if(current!=nullptr) {
     if(current->next!=nullptr) {
+      //moves to next if there is anything
       current=current->next;
       return current->data;
     }
     else {
+      //sets current to null if nothing to next to
       current=nullptr;
       return nullptr;
     }
@@ -155,26 +162,38 @@ T* DoublyLinkedList<T>::next() {
  */
 template <class T>
 T* DoublyLinkedList<T>::remove() {
-  //beginning end and middle head change
-  //also prev
+  //ensure current is pointing to something
   if(current!=nullptr) {
     if(current->next!=nullptr) {
+      //case of removing with multiple in list
       Node* tmp=current;
       if(head==current) {
+        //case of removing the first thing
         head=head->next;
+        current=current->next;
+        delete tmp;
+        return current->data;
       }
-      current=current->next;
-      current->prev=tmp->prev;
-      delete tmp;
-      return current->data;
+      else {
+        //case of removing a middle item
+        Node* tmp2=current->prev;
+        current=current->next;
+        current->prev=tmp->prev;
+        tmp2->next=current;
+        delete tmp;
+        return current->data;
+      }
     }
     else {
+      //case of deleting last in list
       Node* tmp=current;
       if(head==current) {
+        //case of deleting only item
         head=nullptr;
         tail=nullptr;
       }
-      else if(tail==current && tail->prev!=nullptr) {
+      else if(tail->prev!=nullptr) { //TODO mmight not nee the 'else'
+        //case of deleting last from a multiple list
         tail=tail->prev;
       }
       current=nullptr;

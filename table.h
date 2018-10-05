@@ -13,7 +13,9 @@
 
 #include <string>
 #include "party.h"
+#include <iostream>
 
+using namespace std;
 using std::string;
 
 class Table {
