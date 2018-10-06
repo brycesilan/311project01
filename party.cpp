@@ -11,6 +11,7 @@
 
 //no arg class constructor
 Party::Party() {
+  //set all vars. to 0/null
   reservationName=nullptr;
   numDiners=0;
   timeRequired=0;
@@ -18,6 +19,7 @@ Party::Party() {
 
 //class constructor definition
 Party::Party(const string& reservationName, int numDiners, int timeRequired) {
+  //set all vars. to respective things passed in
   this->reservationName=new string(reservationName);
   this->numDiners=numDiners;
   this->timeRequired=timeRequired;
@@ -25,5 +27,6 @@ Party::Party(const string& reservationName, int numDiners, int timeRequired) {
 
 //class destructor definition
 Party::~Party() {
+  //deleted string
   delete reservationName;
 }

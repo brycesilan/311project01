@@ -45,20 +45,30 @@ void Restaurant::getInput() {
   //input takes in put until input=='end'
   while(cin >> input) {
     if(input=="table") {
+      //new table for 'table' case, appended to available list
       cin >> tableID >> partySize >> serverName_partyName;
 
       Table* thisTable=new Table(tableID, partySize, serverName_partyName);
       available.append(thisTable);
     }
     else if(input=="party") {
+      //new party for 'party' case, appended to waiting list
       cin >> partySize >> serverName_partyName >> timeNeeded;
 
       Party* thisParty=new Party(serverName_partyName, partySize, timeNeeded);
       waiting.append(thisParty);
     }
     else if(input=="end") {
+      //end of input case
       break;
     }
+  }
+  //initialize the servers to have no served
+  Table* tmpTable=available.first();
+  while(tmpTable!=nullptr) {
+    //set this table's server to 0 served
+    servers[*tmpTable->getServerName()]=0;
+    tmpTable=available.next();
   }
 }
 
@@ -70,49 +80,59 @@ void Restaurant::getInput() {
  * Uses the lists to run the simulation of serving customers until all customers are gone
  */
 void Restaurant::serveParties() {
-  //loop of restaurant being open
-  while(occupied.empty()==false || waiting.empty()==false) {
-    //clears parties done eating
-    //if anyone is sitting at a table (if occupied)
-    if(occupied.empty()==false) {
-      Table* tmp=occupied.first();
-      while(tmp!=nullptr) {
-        bool removed=false;
-        tmp->decrementTimer();
-        if(tmp->getTimer()<=0) {
-          cout << *tmp->getParty()->getReservationName() << " finished at " << *tmp->getTableID() << endl;
-          tmp->clearTable();
-          available.append(tmp);
-          tmp=occupied.remove();
-          removed=true;
-        }
-        if(removed==false) {
-          tmp=occupied.next();
+  //only starts if there are any available tables
+  if(available.empty()==false) {
+    //loop for restaurant being open
+    while(occupied.empty()==false || waiting.empty()==false) {
+      if(occupied.empty()==false) {
+        //clears parties done eating
+        //if anyone is sitting at a table (if occupied)
+        Table* tmp=occupied.first();
+        while(tmp!=nullptr) {
+          bool removed=false;
+          tmp->decrementTimer();
+          if(tmp->getTimer()<=0) {
+            //found table to be cleared
+            cout << *tmp->getParty()->getReservationName() << " finished at " << *tmp->getTableID() << endl;
+            tmp->clearTable();
+            available.append(tmp);
+            tmp=occupied.remove();
+            removed=true;
+          }
+          if(removed==false) {
+            //if nothing was deleted, move to next occupied table
+            tmp=occupied.next();
+          }
         }
       }
-    }
-    //seats waiting parties
-    if(waiting.empty()==false) {
-      Party* tmp=waiting.first();
-      while(tmp!=nullptr) {
-        bool removed=false;
-        Table* tmpTable=available.first();
-        while(tmpTable!=nullptr) {
-          if(tmpTable->getNumSeats() >= tmp->getNumDiners()) {
-            cout << *tmp->getReservationName() << " seated at " << *tmpTable->getTableID() << endl;
-            tmpTable->seatParty(tmp);
-            tmpTable->setTimer(tmp->getTimeRequired());
-            servers[*tmpTable->getServerName()] = servers[*tmpTable->getServerName()]+tmp->getNumDiners();
-            occupied.append(tmpTable);
-            available.remove();
-            tmp=waiting.remove();
-            removed=true;
-            break;
+      if(waiting.empty()==false) {
+        //seats waiting parties
+        //if anyone is waiting to be seated (if waiting)
+        Party* tmp=waiting.first();
+        while(tmp!=nullptr) {
+          bool removed=false;
+          Table* tmpTable=available.first();
+          while(tmpTable!=nullptr) {
+            if(tmpTable->getNumSeats() >= tmp->getNumDiners()) {
+              //found an available table for the current party
+              cout << *tmp->getReservationName() << " seated at " << *tmpTable->getTableID() << endl;
+              //seat party at table
+              tmpTable->seatParty(tmp);
+              tmpTable->setTimer(tmp->getTimeRequired());
+              servers[*tmpTable->getServerName()] = servers[*tmpTable->getServerName()]+tmp->getNumDiners();
+              //move table to occupied list
+              occupied.append(tmpTable);
+              available.remove();
+              tmp=waiting.remove();
+              removed=true;
+              break;
+            }
+            tmpTable=available.next();
           }
-          tmpTable=available.next();
-        }
-        if(removed==false) {
-          tmp=waiting.next();
+          if(removed==false) {
+            //if nothing was deleted, move to next waiting party
+            tmp=waiting.next();
+          }
         }
       }
     }

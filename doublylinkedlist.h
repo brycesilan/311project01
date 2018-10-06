@@ -41,6 +41,7 @@ class DoublyLinkedList {
 //no args. node constructor
 template <class T>
 DoublyLinkedList<T>::Node::Node() {
+  //set all vars. to null
   data=nullptr;
   next=nullptr;
   prev=nullptr;
@@ -49,6 +50,7 @@ DoublyLinkedList<T>::Node::Node() {
 //Node(T* data) constructor
 template <class T>
 DoublyLinkedList<T>::Node::Node(T* data) {
+  //give the node data, but other vars. should be null
   this->data=data;
   next=nullptr;
   prev=nullptr;
@@ -57,6 +59,7 @@ DoublyLinkedList<T>::Node::Node(T* data) {
 //DoublyLinkedList constructor.
 template <class T>
 DoublyLinkedList<T>::DoublyLinkedList() {
+  //set all DLL vars. to null
   head=nullptr;
   tail=nullptr;
   current=nullptr;
@@ -66,6 +69,7 @@ DoublyLinkedList<T>::DoublyLinkedList() {
 template <class T>
 DoublyLinkedList<T>::~DoublyLinkedList() {
   while(head!=nullptr) {
+    //iterate through list and delete each node
     Node* tmp=head;
     head=head->next;
     delete tmp;
@@ -90,7 +94,7 @@ void DoublyLinkedList<T>::append(T* data) {
     current=head;
   }
   else {
-    //if non-empty list TODO more comments
+    //if non-empty list, place new node on end of list
     Node* tmp=tail;
     tail->next=new Node(data);
     tail=tail->next;
@@ -192,7 +196,7 @@ T* DoublyLinkedList<T>::remove() {
         head=nullptr;
         tail=nullptr;
       }
-      else if(tail->prev!=nullptr) { //TODO mmight not nee the 'else'
+      else if(tail->prev!=nullptr) {
         //case of deleting last from a multiple list
         tail=tail->prev;
       }
