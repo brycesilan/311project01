@@ -88,7 +88,8 @@ DoublyLinkedList<T>::~DoublyLinkedList() {
 template <class T>
 void DoublyLinkedList<T>::append(T* data) {
   if(empty()) {
-    //if list empty, creates new node and sets all DLL vars to point to it
+    //if list empty
+    //creates new node and sets all DLL vars to point to it
     head=new Node(data);
     tail=head;
     current=head;

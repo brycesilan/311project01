@@ -32,7 +32,8 @@ int main() {
  * @param none
  * @return none
  *
- * Takes input, depending on command, creates a table or party to go on the waiting or available lists
+ * Takes input, depending on command
+ * creates a table or party to go on the waiting or available lists
  */
 void Restaurant::getInput() {
   //input variables
@@ -77,7 +78,8 @@ void Restaurant::getInput() {
  * @param none
  * @return none
  *
- * Uses the lists to run the simulation of serving customers until all customers are gone
+ * Uses the lists to run the simulation 
+ * of serving customers until all customers are gone
  */
 void Restaurant::serveParties() {
   //only starts if there are any available tables
@@ -93,7 +95,8 @@ void Restaurant::serveParties() {
           tmp->decrementTimer();
           if(tmp->getTimer()<=0) {
             //found table to be cleared
-            cout << *tmp->getParty()->getReservationName() << " finished at " << *tmp->getTableID() << endl;
+            cout << *tmp->getParty()->getReservationName();
+            cout << " finished at " << *tmp->getTableID() << endl;
             tmp->clearTable();
             available.append(tmp);
             tmp=occupied.remove();
@@ -115,11 +118,13 @@ void Restaurant::serveParties() {
           while(tmpTable!=nullptr) {
             if(tmpTable->getNumSeats() >= tmp->getNumDiners()) {
               //found an available table for the current party
-              cout << *tmp->getReservationName() << " seated at " << *tmpTable->getTableID() << endl;
+              int tmpServer=servers[*tmpTable->getServerName()]+tmp->getNumDiners();
+              cout << *tmp->getReservationName();
+              cout << " seated at " << *tmpTable->getTableID() << endl;
               //seat party at table
               tmpTable->seatParty(tmp);
               tmpTable->setTimer(tmp->getTimeRequired());
-              servers[*tmpTable->getServerName()] = servers[*tmpTable->getServerName()]+tmp->getNumDiners();
+              servers[*tmpTable->getServerName()] = tmpServer;
               //move table to occupied list
               occupied.append(tmpTable);
               available.remove();
