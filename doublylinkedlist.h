@@ -50,7 +50,8 @@ DoublyLinkedList<T>::Node::Node() {
 //Node(T* data) constructor
 template <class T>
 DoublyLinkedList<T>::Node::Node(T* data) {
-  //give the node data, but other vars. should be null
+  //give the node tha passed in data
+  //but other vars. should be null
   this->data=data;
   next=nullptr;
   prev=nullptr;
@@ -72,6 +73,7 @@ DoublyLinkedList<T>::~DoublyLinkedList() {
     //iterate through list and delete each node
     Node* tmp=head;
     head=head->next;
+    delete tmp->data;
     delete tmp;
   }
 }
@@ -89,13 +91,15 @@ template <class T>
 void DoublyLinkedList<T>::append(T* data) {
   if(empty()) {
     //if list empty
-    //creates new node and sets all DLL vars to point to it
+    //creates new node with passed in data
+    //and sets all DLL vars to point to it
     head=new Node(data);
     tail=head;
     current=head;
   }
   else {
-    //if non-empty list, place new node on end of list
+    //if non-empty list, place new node on end
+    //of list with passed in data
     Node* tmp=tail;
     tail->next=new Node(data);
     tail=tail->next;
