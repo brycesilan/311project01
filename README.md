@@ -1,3 +1,3 @@
 # 311project01
 
-CSCI 311 project 1
+CSCI 311 Project 1
